@@ -2,49 +2,48 @@ import React, { useState } from 'react';
 import { RotateCcw } from 'lucide-react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { motion } from 'framer-motion';
+import { ConfirmModal } from './ConfirmModal';
 
 export function ResetButton() {
   const [isDark] = useLocalStorage('theme', true);
-  const [resetConfirmed, setResetConfirmed] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [animate, setAnimate] = useState(false);
 
-  const handleClick = () => {
-    const confirmReset = confirm('¿Estás seguro de que quieres borrar el contenido de LocalStorage y reiniciar el tablero?');
-    if (confirmReset) {
-      setResetConfirmed(true);
-    }
-  };
+  const handleConfirmReset = () => {
+    setAnimate(true); // dispara la animación
 
-  const handleAnimationComplete = () => {
-    if (resetConfirmed) {
+    setTimeout(() => {
       localStorage.clear();
       location.reload();
-    }
+    }, 600); // esperar a que se vea la animación
   };
 
   return (
-    <motion.button
-      onClick={handleClick}
-      className="fixed top-4 right-16 p-2 rounded-full bg-card-light dark:bg-card-dark border border-gray-300 dark:border-gray-600 shadow-md hover:shadow-lg transition-all"
-      aria-label="Reiniciar tablero"
-      title="Resetear Kalanban"
-      initial={{ opacity: 0, scale: 0.8 }}
-      animate={{
-        opacity: 1,
-        scale: 1,
-        ...(resetConfirmed && { rotate: -360 })
-      }}
-      transition={{
-        duration: 0.4,
-        ease: 'easeInOut',
-        scale: { type: 'spring', stiffness: 300, damping: 15 }
-      }}
-      onAnimationComplete={handleAnimationComplete}
-    >
-      {isDark ? (
-        <RotateCcw className="w-5 h-5" />
-      ) : (
-        <RotateCcw className="w-5 h-5 text-accent" />
-      )}
-    </motion.button>
+    <>
+      <motion.button
+        onClick={() => setShowModal(true)}
+        className="fixed top-4 right-16 p-2 rounded-full bg-card-light dark:bg-card-dark border border-gray-300 dark:border-gray-600 shadow-md hover:shadow-lg transition-all"
+        aria-label="Reiniciar tablero"
+        title="Resetear Kalanban"
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: 1, scale: 1, rotate: animate ? -360 : 0 }}
+        transition={{ duration: 0.6, ease: 'easeInOut' }}
+      >
+        <RotateCcw className={`w-5 h-5 ${!isDark ? 'text-accent' : ''}`} />
+      </motion.button>
+
+      <ConfirmModal
+        isOpen={showModal}
+        title="¿Reiniciar tablero?"
+        message="Esto eliminará todas tus tareas guardadas en localStorage. ¿Estás seguro de que quieres comenzar desde cero?"
+        confirmText="Reiniciar"
+        cancelText="Cancelar"
+        onCancel={() => setShowModal(false)}
+        onConfirm={() => {
+          setShowModal(false);
+          handleConfirmReset();
+        }}
+      />
+    </>
   );
 }
