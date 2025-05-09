@@ -44,7 +44,7 @@ export function TaskCard({ task, onDelete, onEdit }: TaskCardProps) {
   return (
     <div
       ref={dragRef} // Esto es lo que hace que esta tarjeta se pueda arrastrar
-      className="bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-100 rounded shadow p-3"
+      className="bg-card-light dark:bg-card-dark text-foreground dark:text-foreground-dark rounded-xl p-3 shadow-sm hover:shadow-md transition-transform hover:scale-[1.02] cursor-pointer"
     >
       {isEditing ? (
         // Modo edición: muestro un input para cambiar el texto

@@ -67,7 +67,7 @@ export function Column({ column, onAddTask, onDeleteTask, onEditTask, onMoveTask
   return (
     <div
       ref={columnRef} // Esto permite que esta columna reciba tareas por drag and drop
-      className="flex flex-col min-w-[300px] bg-gray-100 dark:bg-gray-800 rounded-lg p-4"
+      className="flex flex-col min-w-[300px] bg-card-light dark:bg-card-dark text-foreground dark:text-foreground-dark rounded-2xl p-4 shadow-md backdrop-blur-sm transition-colors duration-300"
     >
       {/* Título de la columna con el conteo de tareas */}
       <div className="flex justify-between items-center mb-4">
