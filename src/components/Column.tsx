@@ -120,7 +120,12 @@ export function Column({ column, onAddTask, onDeleteTask, onEditTask, onMoveTask
         // Botón para mostrar el formulario de nueva tarea
         <button
           onClick={() => setIsAddingTask(true)}
-          className="mt-4 flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200"
+          className="mt-4 flex items-center gap-2 px-3 py-1.5 rounded border border-gray-300 dark:border-gray-600 
+                   text-sm font-medium
+                   text-black dark:text-white 
+                   bg-[#d943be1c] dark:bg-[#7297c71f] 
+                   hover:brightness-110 hover:-translate-y-[1px] hover:shadow-md
+                   transition-all duration-200 ease-in-out"
         >
           <Plus className="w-4 h-4" />
           <span>Añadir tarea</span>
