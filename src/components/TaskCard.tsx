@@ -6,6 +6,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { Trash2, Pencil, Save, X } from 'lucide-react';
 import type { Task } from '../types';
+import clsx from 'clsx';
 
 interface TaskCardProps {
   task: Task;
@@ -43,8 +44,21 @@ export function TaskCard({ task, onDelete, onEdit }: TaskCardProps) {
 
   return (
     <div
-      ref={dragRef} // Esto es lo que hace que esta tarjeta se pueda arrastrar
-      className="bg-card-light dark:bg-card-dark text-foreground dark:text-foreground-dark rounded-xl p-3 shadow-sm hover:shadow-md transition-transform hover:scale-[1.02] cursor-pointer"
+      ref={dragRef}
+      className={clsx(
+        'rounded shadow p-3 transition-all',
+        {
+          // 🌙 Modo oscuro
+          'dark:bg-gradient-to-r dark:from-red-500 dark:to-slate-700 dark:text-white': task.columnId === 'todo',
+          'dark:bg-gradient-to-r dark:from-blue-500 dark:to-slate-700 dark:text-white': task.columnId === 'inProgress',
+          'dark:bg-gradient-to-r dark:from-lime-500 dark:to-slate-500 dark:text-white': task.columnId === 'done',
+
+          // ☀️ Modo claro
+          'bg-gradient-to-r from-red-400 to-pink-400 text-black': task.columnId === 'todo',
+          'bg-gradient-to-r from-cyan-500 to-blue-300 text-black': task.columnId === 'inProgress',
+          'bg-gradient-to-r from-teal-300 to-green-300 text-black': task.columnId === 'done',
+        }
+      )}
     >
       {isEditing ? (
         // Modo edición: muestro un input para cambiar el texto
