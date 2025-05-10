@@ -7,6 +7,7 @@ import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element
 import { Plus } from 'lucide-react';
 import { TaskCard } from './TaskCard';
 import type { Column as ColumnType, Task } from '../types';
+import { AnimatePresence } from 'framer-motion';
 
 // Las props que recibe esta columna: la info de la columna y las funciones para manipular tareas
 interface ColumnProps {
@@ -77,7 +78,7 @@ export function Column({ column, onAddTask, onDeleteTask, onEditTask, onMoveTask
       </div>
 
       {/* Aquí muestro las tareas de esta columna usando el componente TaskCard */}
-      <div className="flex flex-col gap-3">
+      <AnimatePresence mode="popLayout">
         {column.tasks.map((task: Task, index: number) => (
           <TaskCard
             key={task.id}
@@ -87,7 +88,8 @@ export function Column({ column, onAddTask, onDeleteTask, onEditTask, onMoveTask
             onEdit={onEditTask}
           />
         ))}
-      </div>
+      </AnimatePresence>
+
 
       {/* Esto es lo que se muestra cuando quiero agregar una nueva tarea */}
       {isAddingTask ? (
@@ -96,10 +98,17 @@ export function Column({ column, onAddTask, onDeleteTask, onEditTask, onMoveTask
             type="text"
             value={newTaskContent}
             onChange={(e) => setNewTaskContent(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Escape') {
+                setIsAddingTask(false);
+                setNewTaskContent('');
+              }
+            }}
             placeholder="Nueva tarea..."
             className="w-full p-2 rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-gray-200"
             autoFocus
           />
+
           <div className="flex gap-2 mt-2">
             <button
               type="submit"

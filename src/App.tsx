@@ -12,7 +12,17 @@ function App() {
       <ResetButton />
       <Onboarding />
       <main className="container mx-auto px-4 py-8 relative z-10">
-        <h1 className="text-4xl font-extrabold mb-8 bg-gradient-to-r from-slate-900 to-slate-50 dark:from-slate-50 dark:to-zinc-300 bg-clip-text text-transparent">
+        <h1
+          className="text-4xl font-extrabold mb-8
+             bg-clip-text text-transparent
+             bg-gradient-to-r 
+             from-zinc-500 to-red-700
+             dark:from-neutral-300 dark:to-yellow-800
+             transition-transform duration-300 ease-in-out
+             hover:scale-[1.02] 
+             hover:drop-shadow-[0_1px_8px_rgba(0,0,0,0.2)] 
+             dark:hover:drop-shadow-[0_1px_12px_rgba(255,191,0,0.35)]"
+        >
           Kalanban
         </h1>
 

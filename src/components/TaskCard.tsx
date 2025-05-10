@@ -44,13 +44,18 @@ export function TaskCard({ task, onDelete, onEdit }: TaskCardProps) {
         {isVisible && (
           <motion.div
             ref={dragRef}
-            initial={{ opacity: 0, scale: 0.9 }}
+            layout
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.85 }}
-            transition={{ duration: 0.25, ease: 'easeOut' }}
+            transition={{
+              duration: 0.25,
+              ease: 'easeOut',
+              layout: { duration: 0.3, ease: [0.25, 0.8, 0.25, 1] }
+            }}
             onAnimationComplete={handleAnimationComplete}
             className={clsx(
-              'relative rounded shadow p-3 transition-all',
+              'mb-2 relative rounded shadow p-3 transition-all',
               {
                 // 🌙 Modo oscuro
                 'dark:bg-gradient-to-r dark:from-red-500 dark:to-slate-700 dark:text-white': task.columnId === 'todo',
