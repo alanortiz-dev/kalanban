@@ -40,7 +40,8 @@ export function Board() {
           const newTask: Task = {
             id: crypto.randomUUID(),
             content,
-            columnId
+            columnId,
+            createdAt: new Date().toISOString()
           };
           return {
             ...column,

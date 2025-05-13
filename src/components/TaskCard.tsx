@@ -99,7 +99,22 @@ export function TaskCard({ task, onDelete, onEdit }: TaskCardProps) {
               </div>
             ) : (
               <div className="flex justify-between items-start gap-4">
-                <span className="flex-1 break-words">{task.content}</span>
+                <div className="flex-1 break-words">
+                  <span>{task.content}</span>
+                  <p
+                    className="text-xs mt-2 opacity-70 dark:text-gray-300 text-gray-600"
+                    title={new Date(task.createdAt).toLocaleTimeString('es-ES', {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                  >
+                    {new Date(task.createdAt).toLocaleDateString('es-ES', {
+                      day: 'numeric',
+                      month: 'short',
+                      year: 'numeric'
+                    })}
+                  </p>
+                </div>
                 <div className="flex gap-2 items-center">
                   <button
                     onClick={() => setIsEditing(true)}
