@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 interface ConfirmModalProps {
@@ -20,6 +20,21 @@ export const ConfirmModal = ({
   confirmText = 'Confirmar',
   cancelText = 'Cancelar',
 }: ConfirmModalProps) => {
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onCancel();
+      } else if (e.key === 'Enter') {
+        onConfirm();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onCancel, onConfirm]);
+
   if (!isOpen) return null;
 
   return ReactDOM.createPortal(

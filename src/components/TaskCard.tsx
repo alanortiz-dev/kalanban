@@ -5,6 +5,7 @@ import type { Task } from '../types';
 import clsx from 'clsx';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ConfirmModal } from './ConfirmModal';
+import { Tooltip as ReactTooltip } from 'react-tooltip';
 
 interface TaskCardProps {
   task: Task;
@@ -60,7 +61,7 @@ export function TaskCard({ task, onDelete, onEdit }: TaskCardProps) {
                 // 🌙 Modo oscuro
                 'dark:bg-gradient-to-r dark:from-red-500 dark:to-slate-700 dark:text-white': task.columnId === 'todo',
                 'dark:bg-gradient-to-r dark:from-blue-500 dark:to-slate-700 dark:text-white': task.columnId === 'inProgress',
-                'dark:bg-gradient-to-r dark:from-lime-500 dark:to-slate-500 dark:text-white': task.columnId === 'done',
+                'dark:bg-gradient-to-r dark:from-lime-600 dark:to-slate-500 dark:text-white': task.columnId === 'done',
                 // ☀️ Modo claro
                 'bg-gradient-to-r from-red-400 to-pink-400 text-black': task.columnId === 'todo',
                 'bg-gradient-to-r from-cyan-500 to-blue-300 text-black': task.columnId === 'inProgress',
@@ -101,17 +102,13 @@ export function TaskCard({ task, onDelete, onEdit }: TaskCardProps) {
               <div className="flex justify-between items-start gap-4">
                 <div className="flex-1 break-words">
                   <span>{task.content}</span>
-                  <p
-                    className="text-xs mt-2 opacity-70 dark:text-gray-300 text-gray-600"
-                    title={new Date(task.createdAt).toLocaleTimeString('es-ES', {
-                      hour: '2-digit',
-                      minute: '2-digit',
-                    })}
-                  >
-                    {new Date(task.createdAt).toLocaleDateString('es-ES', {
+                  <p className="text-xs mt-2 opacity-70 dark:text-gray-300 text-gray-600">
+                    {new Date(task.createdAt).toLocaleString('es-ES', {
                       day: 'numeric',
                       month: 'short',
-                      year: 'numeric'
+                      year: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit'
                     })}
                   </p>
                 </div>
@@ -119,14 +116,16 @@ export function TaskCard({ task, onDelete, onEdit }: TaskCardProps) {
                   <button
                     onClick={() => setIsEditing(true)}
                     className="text-blue-500 hover:text-blue-700"
-                    title="Editar"
+                    data-tooltip-id={`edit-tooltip-${task.id}`}
+                    data-tooltip-content="Editar"
                   >
                     <Pencil className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => setShowConfirm(true)}
                     className="text-red-500 hover:text-red-700"
-                    title="Eliminar"
+                    data-tooltip-id={`delete-tooltip-${task.id}`}
+                    data-tooltip-content="Eliminar"
                   >
                     <Trash2 className="w-4 h-4" />
                   </button>
@@ -137,6 +136,7 @@ export function TaskCard({ task, onDelete, onEdit }: TaskCardProps) {
         )}
       </AnimatePresence>
 
+      {/* Confirmación de borrado */}
       <ConfirmModal
         isOpen={showConfirm}
         title="¿Eliminar tarea?"
@@ -144,10 +144,18 @@ export function TaskCard({ task, onDelete, onEdit }: TaskCardProps) {
         onCancel={() => setShowConfirm(false)}
         onConfirm={() => {
           setShowConfirm(false);
-          setIsVisible(false); // dispara la animación de salida
+          setIsVisible(false);
+          // Espera a que termine la animación (Nota: Este valor tiene que hacer match con duration de exit)
+          setTimeout(() => {
+            onDelete(task.id);
+          }, 250); // Esto debe ser igual al `exit` duration del motion.div, para que se vea la animación de salida antes de eliminar la tarea
         }}
         confirmText="Eliminar"
       />
+
+      {/* Tooltips individuales */}
+      <ReactTooltip id={`edit-tooltip-${task.id}`} place="top" offset={6} className="!bg-gray-700 !text-white !text-xs !px-2 !py-1 !rounded-md" />
+      <ReactTooltip id={`delete-tooltip-${task.id}`} place="top" offset={6} className="!bg-gray-700 !text-white !text-xs !px-2 !py-1 !rounded-md" />
     </>
   );
 }
