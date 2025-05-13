@@ -29,7 +29,7 @@ export function ResetButton() {
         aria-label="Reiniciar tablero"
         title="Resetear Kalanban"
         initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1, rotate: animate ? 360 : 0 }}
+        animate={{ opacity: 1, scale: 1, rotate: animate ? - 360 : 0 }}
         transition={{ duration: 0.6, ease: 'easeInOut' }}
       >
         <RotateCcw className={`w-5 h-5 ${!isDark ? 'text-accent' : ''}`} />

@@ -2,7 +2,7 @@ export interface Task {
   id: string;
   content: string;
   columnId: string;
-  createdAt: number;
+  createdAt: string;
 }
 
 export interface Column {
