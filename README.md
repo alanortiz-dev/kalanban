@@ -29,6 +29,15 @@
 
 ---
 
+## 🧩 Características avanzadas
+
+- Animaciones con Framer Motion para transiciones suaves
+- Modales de confirmación reutilizables
+- Tooltips personalizados con estilos temáticos
+- Guardado automático sin servidor
+
+---
+
 ## 📦 Instalación y ejecución local
 
 1. Clona el repositorio:
