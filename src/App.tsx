@@ -36,11 +36,9 @@ function App() {
         >
           Kalanban
         </h1>
-
-<div className="overflow-x-auto">
-    <Board />
-  </div>
-
+        <div className="overflow-x-auto">
+          <Board />
+        </div>
       </main>
     </div>
   );
