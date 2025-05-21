@@ -133,7 +133,7 @@ export function Board() {
     // y hacer drag and drop
     // El ID de cada columna se usa para identificarla en el localStorage
     // y en el onboarding. Nota, el ID que agregué a el div de abajo es tambien para el onboarding 
-    <div id="board" className="flex gap-4 overflow-x-auto">
+    <div id="board" className="flex gap-4 w-fit">
       {board.columns.map((column) => (
         <Column
           key={column.id}

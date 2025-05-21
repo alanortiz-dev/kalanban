@@ -14,7 +14,7 @@ function App() {
     const shouldStartTour = localStorage.getItem('start-tour');
     if (shouldStartTour === 'true') {
       localStorage.removeItem('start-tour');
-      setTimeout(() => startTutorial(), 500); // ⏳ espera medio segundo para asegurar render
+      setTimeout(() => startTutorial(), 500); // Espera medio segundo para asegurar render
     }
   }, []);
 
@@ -37,8 +37,10 @@ function App() {
           Kalanban
         </h1>
 
+<div className="overflow-x-auto">
+    <Board />
+  </div>
 
-        <Board />
       </main>
     </div>
   );
