@@ -67,6 +67,7 @@ export function Column({ column, onAddTask, onDeleteTask, onEditTask, onMoveTask
 
   return (
     <div
+      id={`column-${column.id}`} // ✅ ID necesario para el onboarding
       ref={columnRef} // Esto permite que esta columna reciba tareas por drag and drop
       className="flex flex-col min-w-[300px] bg-card-light dark:bg-card-dark text-foreground dark:text-foreground-dark rounded-2xl p-4 shadow-md backdrop-blur-sm transition-colors duration-300"
     >
@@ -86,6 +87,7 @@ export function Column({ column, onAddTask, onDeleteTask, onEditTask, onMoveTask
             index={index}
             onDelete={onDeleteTask}
             onEdit={onEditTask}
+            isFirstTaskInTodo={column.id === 'todo' && index === 0} //Esta propiedad va a revisar si es la primera tarea en la columna "Por hacer" para el onboarding tour
           />
         ))}
       </AnimatePresence>
@@ -128,6 +130,7 @@ export function Column({ column, onAddTask, onDeleteTask, onEditTask, onMoveTask
       ) : (
         // Botón para mostrar el formulario de nueva tarea
         <button
+          id={column.id === 'todo' ? 'add-task' : undefined} // Solo la columna 'todo' lo tendrá
           onClick={() => setIsAddingTask(true)}
           className="mt-4 flex items-center gap-2 px-3 py-1.5 rounded border border-gray-300 dark:border-gray-600 
                    text-sm font-medium

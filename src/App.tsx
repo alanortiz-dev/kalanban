@@ -1,11 +1,23 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { ThemeToggle } from './components/ThemeToggle';
 import { Board } from './components/Board';
 import { Onboarding } from './components/Onboarding';
 import { ResetButton } from './components/ResetButton';
+import { startTutorial } from './lib/startTour';
+
+
 
 
 function App() {
+  useEffect(() => {
+    const shouldStartTour = localStorage.getItem('start-tour');
+    if (shouldStartTour === 'true') {
+      localStorage.removeItem('start-tour');
+      setTimeout(() => startTutorial(), 500); // ⏳ espera medio segundo para asegurar render
+    }
+  }, []);
+
   return (
     <div className="min-h-screen text-foreground dark:text-foreground-dark transition-colors bg-gradient-to-br from-slate-100 via-fuchsia-200 to-violet-400 dark:from-slate-900 dark:via-red-900 dark:to-yellow-800">
       <ThemeToggle />

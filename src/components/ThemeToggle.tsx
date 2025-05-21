@@ -13,6 +13,7 @@ export function ThemeToggle() {
   return (
     <>
       <button
+        id="theme-toggle" // ID necesario para el onboarding tour
         onClick={() => setIsDark(!isDark)}
         className="fixed top-4 right-4 md:right-8 z-50 p-2 rounded-full 
                    bg-card-light dark:bg-card-dark 

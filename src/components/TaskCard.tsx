@@ -12,9 +12,10 @@ interface TaskCardProps {
   index: number;
   onDelete: (taskId: string) => void;
   onEdit: (taskId: string, content: string) => void;
+  isFirstTaskInTodo?: boolean; // Propiedad que indica si es la primera tarea en la columna "Por hacer" para el onboarding tour
 }
 
-export function TaskCard({ task, onDelete, onEdit }: TaskCardProps) {
+export function TaskCard({ task, onDelete, onEdit, isFirstTaskInTodo }: TaskCardProps) {
   const dragRef = useRef<HTMLDivElement>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(task.content);
@@ -114,6 +115,7 @@ export function TaskCard({ task, onDelete, onEdit }: TaskCardProps) {
                 </div>
                 <div className="flex gap-2 items-center">
                   <button
+                    id={isFirstTaskInTodo ? 'edit-task' : undefined} // ID condicional para el onboarding tour
                     onClick={() => setIsEditing(true)}
                     className="text-blue-500 hover:text-blue-700"
                     data-tooltip-id={`edit-tooltip-${task.id}`}
@@ -122,6 +124,7 @@ export function TaskCard({ task, onDelete, onEdit }: TaskCardProps) {
                     <Pencil className="w-4 h-4" />
                   </button>
                   <button
+                    id={isFirstTaskInTodo ? 'delete-task' : undefined} // ID condicional para el onboarding tour
                     onClick={() => setShowConfirm(true)}
                     className="text-red-500 hover:text-red-700"
                     data-tooltip-id={`delete-tooltip-${task.id}`}

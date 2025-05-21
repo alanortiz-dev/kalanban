@@ -127,8 +127,13 @@ export function Board() {
   }
 
   return (
-    // Acá dibujo todas las columnas del tablero
-    <div className="flex gap-4 overflow-x-auto">
+    // Aquí es donde se dibujan todas las columnas del tablero
+    // Cada columna recibe las funciones para agregar, eliminar, editar y mover tareas
+    // Además, cada columna tiene su propio ID para poder identificarla
+    // y hacer drag and drop
+    // El ID de cada columna se usa para identificarla en el localStorage
+    // y en el onboarding. Nota, el ID que agregué a el div de abajo es tambien para el onboarding 
+    <div id="board" className="flex gap-4 overflow-x-auto">
       {board.columns.map((column) => (
         <Column
           key={column.id}

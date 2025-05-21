@@ -22,6 +22,7 @@ export function ResetButton() {
   return (
     <>
       <motion.button
+        id="reset-button" // ID necesario para el onboarding tour
         onClick={() => setShowModal(true)}
         className="fixed top-4 right-20 z-50 p-2 rounded-full 
          bg-card-light dark:bg-card-dark 
