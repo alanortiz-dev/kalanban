@@ -45,6 +45,7 @@ export function TaskCard({ task, onDelete, onEdit, isFirstTaskInTodo }: TaskCard
       <AnimatePresence>
         {isVisible && (
           <motion.div
+            id={isFirstTaskInTodo ? 'task-draggable' : undefined} // ID condicional para el onboarding tour
             ref={dragRef}
             layout
             initial={{ opacity: 0, scale: 0.95 }}

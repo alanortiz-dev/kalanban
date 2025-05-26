@@ -25,3 +25,39 @@ body {
 .text-foreground {
   @apply text-gray-900 dark:text-white;
 }
+
+/* Estilos personalizados para los popovers de driver.js */
+.driver-popover {
+  @apply !bg-zinc-500 !text-white !rounded-xl !shadow-lg !border !border-gray-700 !p-6;
+  font-family: inherit;
+}
+
+.driver-popover-title {
+  @apply text-xl font-semibold mb-2;
+}
+
+.driver-popover-description {
+  @apply text-sm leading-relaxed opacity-90;
+}
+
+.driver-popover-footer {
+  @apply mt-4 flex justify-end gap-2;
+}
+
+.driver-next-btn,
+.driver-prev-btn,
+.driver-close-btn {
+  @apply px-3 py-1.5 text-sm rounded-lg font-semibold transition-colors;
+}
+
+.driver-next-btn {
+  @apply bg-purple-600 hover:bg-purple-700 text-white;
+}
+
+.driver-prev-btn {
+  @apply bg-zinc-700 hover:bg-zinc-600 text-white;
+}
+
+.driver-close-btn {
+  @apply bg-transparent text-white underline hover:text-purple-400;
+}
